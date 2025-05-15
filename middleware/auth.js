@@ -5,7 +5,6 @@ require('dotenv').config();
 const {JWT_KEY}=require("../config/env")
 
 const auth = async(req, res, next)=> {
-    console.log("Auth middleware invoked")
    
     try {
       
