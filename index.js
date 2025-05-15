@@ -29,7 +29,7 @@ const corsOptions = {
     origin: [
       "https://api.paystack.co",
       "https://coco-essentials.vercel.app",
-      'https://8425-197-211-52-239.ngrok-free.app',
+      "https://e7d4-197-211-59-94.ngrok-free.app",
       'http://localhost:5174'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
