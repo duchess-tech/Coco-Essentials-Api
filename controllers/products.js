@@ -6,6 +6,8 @@ const fs = require('fs');
 const path = require('path');
 const { CloudApi_key, CloudApi_secret, Cloud_name } = require("../config/env");
 const { editProduct } = require("./api");
+const Cart = require("../models/cartModel");
+const wishlistModel = require("../models/wishlistModel");
 
 cloudinary.config({
   cloud_name: Cloud_name,
@@ -62,16 +64,42 @@ const AddProduct=async(req,res)=>{
 
 
 
-const DeleteProduct=async(req,res)=>{
-const id = req.params.id;
-    try {
-        await productsModel.deleteOne({_id:id});
-        res.status(200).json({ message: 'product deleted successfully.',created:true });
-    } catch (error) {
-        console.error('Error deleting documents:', error);
-        res.status(500).json({ error: 'Internal Server Error',created:false });
-    }
-}
+// const DeleteProduct=async(req,res)=>{
+// const id = req.params.id;
+//     try {
+//         await productsModel.deleteOne({_id:id});
+//         res.status(200).json({ message: 'product deleted successfully.',created:true });
+//     } catch (error) {
+//         console.error('Error deleting documents:', error);
+//         res.status(500).json({ error: 'Internal Server Error',created:false });
+//     }
+// }
+
+
+const DeleteProduct = async (req, res) => {
+  const id = req.params.id;
+  try {
+    // Delete the product from the product collection
+    await productsModel.deleteOne({ _id: id });
+
+    // Remove the product from all carts
+    await Cart.updateMany(
+      {},
+      { $pull: { products: { productId: id } } }
+    );
+
+    // Remove the product from all wishlists
+    await wishlistModel.updateMany(
+      {},
+      { $pull: { items: { productId: id } } }
+    );
+
+    res.status(200).json({ message: 'Product deleted and removed from all carts and wishlists.', created: true });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ error: 'Internal Server Error', created: false });
+  }
+};
 
 
 

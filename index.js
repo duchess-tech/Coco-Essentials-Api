@@ -14,15 +14,15 @@ const app=express()
 
 
 
-app.use((req, res, next) => {
-  if (req.headers.origin) {
-    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-  }
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.headers.origin) {
+//     res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+//   }
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+//   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+//   next();
+// });
  
 const corsOptions = {
   
@@ -44,8 +44,8 @@ app.use(cookiesparser())
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Credentials', 'true');
-    console.log(`${req.method} ${req.url}`);
-    console.log('Headers:', req.headers);
+    // console.log(`${req.method} ${req.url}`);
+    // console.log('Headers:', req.headers);
     next();
   });
   

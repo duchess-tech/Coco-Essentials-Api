@@ -13,12 +13,5 @@ const WishlistSchema = new Schema({
   timestamps: true,
 });
 
-// WishlistSchema.pre('save', function(next) {
-//   if (!this.userId && !this.sessionId) {
-//     next(new Error('Either userId or sessionId must be provided.'));
-//   } else {
-//     next();
-//   }
-// });
 
 module.exports = mongoose.model('Wishlist', WishlistSchema);
